@@ -14,12 +14,13 @@ async function Server(){
     await sequelizeConnection.authenticate();
     await sequelizeConnection.sync();
     console.log("Connection has been established successfully");
+    app.use('/api',registerUser);
+    app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
 }catch(error){
-    console.log("Cannot connect to database", error);
+    console.log("Cannot connect to database", {error});
 }
 }
 Server();
-app.use('/api',registerUser);
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+
